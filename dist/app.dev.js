@@ -6,7 +6,12 @@ var screen = document.getElementById("Calculator__display"); ////Get button inpu
 
 var getValue = function getValue(num) {
   //Get value of button
-  var buttonVal = num.innerHTML; ///Pass value to equation array
+  var buttonVal = num.innerHTML; //Clear zero
+
+  if (equationArr[0] == 0) {
+    equationArr = [];
+  } ///Pass value to equation array
+
 
   equationArr.push(buttonVal);
   console.log("array:" + equationArr); ///Pass array to display
@@ -19,12 +24,21 @@ var clearEquation = function clearEquation() {
   equationArr = [];
   screen.innerHTML = equationArr;
 }; ///Negate / Invert
-
-/*
-const invertNum = () => {
-
-    if()
-}*/
+// const invertNum = (num) => {
+//     ///Check for operators 
+//     //const reg = /((+)|(-)|(\/)|(*))/ ;
+//     //let containsOperator = reg.test(equationArr);
+//     let reg1 = /+/;
+//     let reg2 = /-/;
+//     let reg3 = /\//;
+//     let reg4 = /\*/;
+//     let fullCheck = (reg1 && reg2 && reg3 && reg4);
+//     ///Get value on screen
+//     if(!fullCheck) {
+//         return num *= -1;
+//     }
+//     else {return;}
+// }
 ////Run users equation 
 
 

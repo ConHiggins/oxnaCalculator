@@ -5,7 +5,7 @@ let equationArr = [];
 const screen = document.getElementById("Calculator__display");
 
 
-////Get button inputs
+////Get button inputs /////////////////////////////////////////////////////////////
 
 
 const getValue = (num) => {
@@ -14,19 +14,24 @@ const getValue = (num) => {
     let buttonVal = num.innerHTML;
     //Clear zero
     if(equationArr[0] == 0) { equationArr = [];}
-    ///Pass value to equation array
-    equationArr.push(buttonVal);
+    ////Return /do nothing if number too long
     
-    console.log("array:" + equationArr); 
+    if(equationArr.length < 9) {
+            ///Pass value to equation array
+            equationArr.push(buttonVal);
+            
+            console.log("array:" + equationArr); 
 
-    ///Pass array to display
-    screen.innerHTML = equationArr.join("");
-    
+            ///Pass array to display
+            screen.innerHTML = equationArr.join("");
+    }
+    else {return;}
+            
 };
 
 
 
-///Clear current equation 
+///Clear current equation //////////////////////////////////////////////////////////
 
 const clearEquation = () => {
 
@@ -35,7 +40,7 @@ const clearEquation = () => {
 }
 
 
-///Negate / Invert
+///Negate / Invert //////////////////////////////////////////////////////////////////
 
 
 // const invertNum = (num) => {
@@ -62,17 +67,28 @@ const clearEquation = () => {
 // }
 
 
-////Run users equation 
+////Run users equation ////////////////////////////////////////////////////////////////////
 
 const equals = () => {
 
-    ///Run equation array as mathematical function 
-    let result = Function("return " + equationArr.join(""))();  ////Important to have () at the end as it executes it as a function (rather than printing the function)
-    ///Set equation array to result
-    equationArr = [result];
-    ///Pass result to screen
-    screen.innerHTML = result;
-    console.log(result);
+    ///Clear if equation starts with operator
+    if((equationArr[0] == "/")
+    || (equationArr[0] == "*") 
+    || (equationArr[0] == "%")) {
+
+        return clearEquation();
+    }
+
+    else {
+
+            ///Run equation array as mathematical function 
+            let result = Function("return " + equationArr.join(""))();  ////Important to have () at the end as it executes it as a function (rather than printing the function)
+            ///Set equation array to result
+            equationArr = [result];
+            ///Pass result to screen
+            screen.innerHTML = result;
+            console.log(result);
+    }
 }
 
 

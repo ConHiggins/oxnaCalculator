@@ -1,3 +1,5 @@
+@use '_variables.scss' as *;
+
 * {
 
     margin: 0;
@@ -28,10 +30,17 @@ body {
     gap: 0.5rem;
     margin: 1rem;
     margin-top: 6rem;
-    padding: 0.1rem;
-    height: 30rem;
-    width: 20rem;
-    border: 2px solid black;
+    padding: 1rem;
+    height: 32rem;
+    width: 22rem;
+    background: rgb(33,36,0);
+background: linear-gradient(0deg, 
+                        $bg-col 0%, 
+                            $mid-col 70%, 
+                                $highlight-col 100%);
+    border: 4px solid $bg-col;
+    border-radius: 1rem;
+    box-shadow: 0.5rem 0.5rem $bg-col;
 
 }
 
@@ -40,8 +49,14 @@ body {
 
     grid-row: 1;
     grid-column: 1 / 5;
-    border: 4px solid black;
-    border-radius: 1rem;;
+    border: 4px solid $bg-col;
+    border-radius: 1rem;
+    text-align: right;
+    font-size: 4rem; 
+    padding-right: 2rem;
+    background-color: $bg-col;
+    color: $light-col;
+    box-shadow: 0.5rem 0.5rem $mid-col ;
 }
 
 
@@ -50,12 +65,17 @@ button {
     width: 4rem;
     height: 4rem;
      margin: 0.2rem;
-     border: 4px solid black;
+     border: 4px solid $mid-col;
      border-radius: 50%;
      font-size: 2rem;
+     background-color: $mid-col;
+     box-shadow: 0.3rem 0.2rem $bg-col;
 }
 
+button:active {
 
+    box-shadow: none;
+}
 
 } //////////////// Mobile
 

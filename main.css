@@ -51,9 +51,13 @@ body {
     font-size: 2rem;
     background-color: #B0413E;
     box-shadow: 0.3rem 0.2rem #473335;
+    color: #FCAA67;
   }
 
   button:active {
-    box-shadow: none;
+    box-shadow: -0.15rem -0.15rem #473335;
+    width: 3.9rem;
+    height: 3.9rem;
+    font-size: 1.9rem;
   }
 }/*# sourceMappingURL=main.css.map */

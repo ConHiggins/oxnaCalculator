@@ -9,36 +9,39 @@
 </head>
 <body>
     
+    <section class="Calculator">
+
+        <div class="Calculator__display" id="Calculator__display"></div>
+
+        <button class="Calculator__button Calculator__operator" id="Calculator__button-cancel" onclick="getValue(this)">AC</button>
+        <button class="Calculator__button Calculator__operator" id="Calculator__button-posNeg" onclick="getValue(this)">+/-</button>
+        <button class="Calculator__button Calculator__operator" id="Calculator__button-modulo" onclick="getValue(this)">%</button>
+        <button class="Calculator__button Calculator__operator" id="Calculator__button-divide" onclick="getValue(this)">/</button>
+
+        <button class="Calculator__button Calculator__number" id="Calculator__button-7" onclick="getValue(this)">7</button>
+        <button class="Calculator__button Calculator__number" id="Calculator__button-8" onclick="getValue(this)">8</button>
+        <button class="Calculator__button Calculator__number" id="Calculator__button-9" onclick="getValue(this)">9</button>
+        <button class="Calculator__button Calculator__operator" id="Calculator__button-multiply" onclick="getValue(this)">*</button>
+
+        <button class="Calculator__button Calculator__number" id="Calculator__button-4" onclick="getValue(this)">4</button>
+        <button class="Calculator__button Calculator__number" id="Calculator__button-5" onclick="getValue(this)">5</button>
+        <button class="Calculator__button Calculator__number" id="Calculator__button-6" onclick="getValue(this)">6</button>
+        <button class="Calculator__button Calculator__operator" id="Calculator__button-minus">-</button>
+
+        <button class="Calculator__button Calculator__number" id="Calculator__button-1" onclick="getValue(this)">1</button>
+        <button class="Calculator__button Calculator__number" id="Calculator__button-2" onclick="getValue(this)">2</button>
+        <button class="Calculator__button Calculator__number" id="Calculator__button-3" onclick="getValue(this)">3</button>
+        <button class="Calculator__button Calculator__operator" id="Calculator__button-plus" onclick="getValue(this)">+</button>
+        
+        <button class="Calculator__button Calculator__number" id="Calculator__button-0" onclick="getValue(this)">0</button>
+        <button class="Calculator__button Calculator__operator" id="Calculator__button-decimal" onclick="getValue(this)">.</button>
+        <button class="Calculator__button Calculator__operator" id="Calculator__button-equals" onclick="equals()">=</button>
+
+    </section>
+
+
     <script src = "./app.js"></script>
 
 
-    <section class="Calculator">
-
-        <div class="Calculator__display">Test</div>
-        <button class="Calculator__operator Calculator__clear">AC</button>
-        <button class="Calculator__operator Calculator__posNeg">+/-</button>
-        <button class="Calculator__operator Calculator__modulo">%</button>
-        <button class="Calculator__operator Calculator__divide">/</button>
-
-        <button class="Calculator__number">7</button>
-        <button class="Calculator__number">8</button>
-        <button class="Calculator__number">9</button>
-        <button class="Calculator__operator Calculator__multiply">X</button>
-
-        <button class="Calculator__number">4</button>
-        <button class="Calculator__number">5</button>
-        <button class="Calculator__number">6</button>
-        <button class="Calculator__operator Calculator__minus">-</button>
-
-        <button class="Calculator__number">1</button>
-        <button class="Calculator__number">2</button>
-        <button class="Calculator__number">3</button>
-        <button class="Calculator__operator Calculator__add">+</button>
-        
-        <button class="Calculator__number">0</button>
-        <button class="Calculator__operator Calculator__decimal">.</button>
-        <button class="Calculator__operator Calculator__equals">=</button>
-
-    </section>
 </body>
 </html>

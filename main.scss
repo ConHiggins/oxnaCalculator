@@ -70,11 +70,16 @@ button {
      font-size: 2rem;
      background-color: $mid-col;
      box-shadow: 0.3rem 0.2rem $bg-col;
+     color: $light-col;
 }
 
 button:active {
 
-    box-shadow: none;
+    box-shadow: -0.15rem -0.15rem $bg-col;
+    
+    width: 3.9rem;
+    height: 3.9rem;
+    font-size: 1.9rem;
 }
 
 } //////////////// Mobile

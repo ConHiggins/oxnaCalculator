@@ -2,8 +2,13 @@
 
 var index, currDisplay;
 var equationArr = [];
-var screen = document.getElementById("Calculator__display");
-var operators = ["+", "-", "*", "/", "%"]; ////Get button inputs /////////////////////////////////////////////////////////////
+var screen = document.getElementById("Calculator__display"); //const operators = ["+", "-", "*", "/", "%"];
+
+var containsOperator = false; ////Get button inputs /////////////////////////////////////////////////////////////
+
+var boolOperator = function boolOperator() {
+  containsOperator = true;
+};
 
 var getValue = function getValue(num) {
   //Get value of button
@@ -15,12 +20,12 @@ var getValue = function getValue(num) {
 
 
   if (equationArr.length < 9) {
-    ///Reset to result to avoid chaining
-    // if(equationArr.includes("+", "-", "/", "*", "%")
-    //   && buttonVal.includes("+", "-", "/", "*", "%")) {
-    //     equals();
-    // }
-    ///Pass value to equation array
+    ///Reset to result to allow further inputs
+    if (num.classList.contains("Calculator__operator") && containsOperator == true) {
+      equals();
+    } ///Pass value to equation array
+
+
     equationArr.push(buttonVal);
     console.log("array:" + equationArr); ///Pass array to display
 
@@ -64,7 +69,9 @@ var equals = function equals() {
 
     equationArr = [result]; ///Pass result to screen
 
-    screen.innerHTML = result;
+    screen.innerHTML = result; //Reset operator bool
+
+    containsOperator = false;
     console.log(result);
   }
 };

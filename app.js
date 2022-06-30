@@ -3,10 +3,18 @@
 let index, currDisplay;
 let equationArr = [];
 const screen = document.getElementById("Calculator__display");
-const operators = ["+", "-", "*", "/", "%"];
+//const operators = ["+", "-", "*", "/", "%"];
 
+let containsOperator = false;
 
 ////Get button inputs /////////////////////////////////////////////////////////////
+
+
+
+const boolOperator = () => {
+
+    containsOperator = true;
+}
 
 
 const getValue = (num) => {
@@ -19,13 +27,13 @@ const getValue = (num) => {
     ////Check length & return /do nothing if number too long    
     if(equationArr.length < 9) {
 
-        ///Reset to result to avoid chaining
-        // if(equationArr.includes("+", "-", "/", "*", "%")
-        //   && buttonVal.includes("+", "-", "/", "*", "%")) {
+        ///Reset to result to allow further inputs
 
-        //     equals();
-            
-        // }
+        if((num.classList.contains("Calculator__operator")) 
+        && (containsOperator == true)) {
+
+            equals();
+        }
 
 
             ///Pass value to equation array
@@ -98,6 +106,9 @@ const equals = () => {
             equationArr = [result];
             ///Pass result to screen
             screen.innerHTML = result;
+
+            //Reset operator bool
+            containsOperator = false;
             console.log(result);
     }
 }

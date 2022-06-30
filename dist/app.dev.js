@@ -4,10 +4,21 @@ var index, currDisplay;
 var equationArr = [];
 var screen = document.getElementById("Calculator__display"); //const operators = ["+", "-", "*", "/", "%"];
 
-var containsOperator = false; ////Get button inputs /////////////////////////////////////////////////////////////
+var containsOperator = false;
+var screenWidth = 9; ////Get button inputs /////////////////////////////////////////////////////////////
 
 var boolOperator = function boolOperator() {
   containsOperator = true;
+};
+
+var operatorCheck = function operatorCheck(num) {
+  ///Reset to result to allow further inputs
+  if (num.classList.contains("Calculator__operator")) //&& (containsOperator == true)) 
+    {
+      return equals();
+    } else {
+    return;
+  }
 };
 
 var getValue = function getValue(num) {
@@ -16,20 +27,16 @@ var getValue = function getValue(num) {
 
   if (equationArr[0] == 0) {
     equationArr = [];
-  } ////Check length & return /do nothing if number too long    
+  }
 
+  operatorCheck(num); ////Check length & return /do nothing if number too long    
 
-  if (equationArr.length < 9) {
-    ///Reset to result to allow further inputs
-    if (num.classList.contains("Calculator__operator") && containsOperator == true) {
-      equals();
-    } ///Pass value to equation array
-
-
+  if (equationArr.length < screenWidth) {
+    ///Pass value to equation array
     equationArr.push(buttonVal);
     console.log("array:" + equationArr); ///Pass array to display
 
-    screen.innerHTML = equationArr.join("");
+    return screen.innerHTML = equationArr.join("");
   } else {
     return;
   }
@@ -55,7 +62,16 @@ var clearEquation = function clearEquation() {
 //     }
 //     else {return;}
 // }
-////Run users equation ////////////////////////////////////////////////////////////////////
+////Check decimals function
+
+
+var checkDecimal = function checkDecimal(num) {
+  if (Number.isInteger(num)) {
+    return 1;
+  } else {
+    return num.toString().split(".")[0].length;
+  }
+}; ////Run users equation ////////////////////////////////////////////////////////////////////
 
 
 var equals = function equals() {
@@ -65,11 +81,19 @@ var equals = function equals() {
   } else {
     ///Run equation array as mathematical function 
     var result = Function("return " + equationArr.join(""))(); ////Important to have () at the end as it executes it as a function (rather than printing the function)
-    ///Set equation array to result
+    ///var for remaining space 
 
-    equationArr = [result]; ///Pass result to screen
+    var decimalSpace = 0;
 
-    screen.innerHTML = result; //Reset operator bool
+    if (Number.isInteger(result) == false) {
+      decimalSpace = screenWidth - checkDecimal(result);
+      console.log(decimalSpace);
+    } ///Set equation array to result
+
+
+    equationArr = [result.toFixed(decimalSpace)]; ///Pass result to screen
+
+    screen.innerHTML = equationArr[equationArr.length - 1]; //Reset operator bool
 
     containsOperator = false;
     console.log(result);

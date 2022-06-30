@@ -3,6 +3,7 @@
 let index, currDisplay;
 let equationArr = [];
 const screen = document.getElementById("Calculator__display");
+const operators = ["+", "-", "*", "/", "%"];
 
 
 ////Get button inputs /////////////////////////////////////////////////////////////
@@ -14,9 +15,19 @@ const getValue = (num) => {
     let buttonVal = num.innerHTML;
     //Clear zero
     if(equationArr[0] == 0) { equationArr = [];}
-    ////Return /do nothing if number too long
-    
+
+    ////Check length & return /do nothing if number too long    
     if(equationArr.length < 9) {
+
+        ///Reset to result to avoid chaining
+        // if(equationArr.includes("+", "-", "/", "*", "%")
+        //   && buttonVal.includes("+", "-", "/", "*", "%")) {
+
+        //     equals();
+            
+        // }
+
+
             ///Pass value to equation array
             equationArr.push(buttonVal);
             
@@ -71,7 +82,7 @@ const clearEquation = () => {
 
 const equals = () => {
 
-    ///Clear if equation starts with operator
+    ///Clear if equation starts with operator other than + or -
     if((equationArr[0] == "/")
     || (equationArr[0] == "*") 
     || (equationArr[0] == "%")) {

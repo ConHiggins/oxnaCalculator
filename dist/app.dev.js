@@ -2,7 +2,8 @@
 
 var index, currDisplay;
 var equationArr = [];
-var screen = document.getElementById("Calculator__display"); ////Get button inputs /////////////////////////////////////////////////////////////
+var screen = document.getElementById("Calculator__display");
+var operators = ["+", "-", "*", "/", "%"]; ////Get button inputs /////////////////////////////////////////////////////////////
 
 var getValue = function getValue(num) {
   //Get value of button
@@ -10,10 +11,15 @@ var getValue = function getValue(num) {
 
   if (equationArr[0] == 0) {
     equationArr = [];
-  } ////Return /do nothing if number too long
+  } ////Check length & return /do nothing if number too long    
 
 
   if (equationArr.length < 9) {
+    ///Reset to result to avoid chaining
+    // if(equationArr.includes("+", "-", "/", "*", "%")
+    //   && buttonVal.includes("+", "-", "/", "*", "%")) {
+    //     equals();
+    // }
     ///Pass value to equation array
     equationArr.push(buttonVal);
     console.log("array:" + equationArr); ///Pass array to display
@@ -48,7 +54,7 @@ var clearEquation = function clearEquation() {
 
 
 var equals = function equals() {
-  ///Clear if equation starts with operator
+  ///Clear if equation starts with operator other than + or -
   if (equationArr[0] == "/" || equationArr[0] == "*" || equationArr[0] == "%") {
     return clearEquation();
   } else {

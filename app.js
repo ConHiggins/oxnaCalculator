@@ -7,7 +7,7 @@ const screen = document.getElementById("Calculator__display");
 
 let containsOperator = false;
 
-const screenWidth = 10;
+const screenWidth = 9;
 
 let currLength = 0;
 
@@ -22,7 +22,7 @@ const boolOperator = () => {
     
 }
 
-////Highlight operator button /////////////////
+////Highlight operator button //////////////////////////////////////////////////////
 
 const highlightOperator = (btn) => {
 
@@ -40,7 +40,7 @@ const highlightOperator = (btn) => {
     else return;
 }
 
-///// Reset operator buttons to inactive ////
+///// Reset operator buttons to inactive /////////////////////////////////////////////
 
 const resetButtons = () => {
 
@@ -56,7 +56,7 @@ const resetButtons = () => {
 
 }
 
-////Check for operator //////////////////////////////////////////////
+////Check for operator ///////////////////////////////////////////////////////////
 
 const operatorCheck = (arr) => {
 
@@ -87,6 +87,17 @@ const invertNum = (num) => {
     
 }
 
+const invertNumResult = () => {
+
+    ///Reduce array to single number 
+    equals();
+    ////Get inversion
+    let negNum = Number(invertNum(equationArr[equationArr.length-1]));
+    ///Remove "+/-" from array
+    buttonVal = null;
+    ///Set recent number to inversion
+    equationArr[equationArr.length-1] = negNum;
+}
 
 
 //////Total/literal array length/////////////////////////////////////////////////////
@@ -142,12 +153,8 @@ const getValue = (num) => {
     //Clear zero
     if(equationArr[0] == 0) { equationArr = [];}
 
+    checkNumLength(buttonVal);
     
-
-        checkNumLength(buttonVal);
-    
-    
-
     if(buttonVal == "+/-") {
 
         ///Reduce array to single number 
@@ -234,8 +241,6 @@ const checkDecimal = (num) => {
 
 
 
-
-
 ////Run users equation ////////////////////////////////////////////////////////////////////
 
 const equals = () => {
@@ -262,7 +267,7 @@ const equals = () => {
 
             if(Number.isInteger(result) == false) {
                     
-                    decimalSpace = screenWidth - checkDecimal(result);
+                    decimalSpace = Math.max(checkDecimal(result)+1, screenWidth - checkDecimal(result));
                     //console.log(decimalSpace);
                 }   
 

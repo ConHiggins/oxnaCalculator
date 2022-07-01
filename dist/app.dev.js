@@ -3,13 +3,13 @@
 var equationArr = [];
 var screen = document.getElementById("Calculator__display");
 var containsOperator = false;
-var screenWidth = 10;
+var screenWidth = 9;
 var currLength = 0;
 var operators = ["+", "-", "/", "*", "%"]; //// Operator boolean /////////////////////////////////////////////////////////////
 
 var boolOperator = function boolOperator() {
   containsOperator = true;
-}; ////Highlight operator button /////////////////
+}; ////Highlight operator button //////////////////////////////////////////////////////
 
 
 var highlightOperator = function highlightOperator(btn) {
@@ -21,7 +21,7 @@ var highlightOperator = function highlightOperator(btn) {
 
     return btn.classList.add("current");
   } else return;
-}; ///// Reset operator buttons to inactive ////
+}; ///// Reset operator buttons to inactive /////////////////////////////////////////////
 
 
 var resetButtons = function resetButtons() {
@@ -33,7 +33,7 @@ var resetButtons = function resetButtons() {
   }
 
   ;
-}; ////Check for operator //////////////////////////////////////////////
+}; ////Check for operator ///////////////////////////////////////////////////////////
 
 
 var operatorCheck = function operatorCheck(arr) {
@@ -51,6 +51,17 @@ var operatorCheck = function operatorCheck(arr) {
 
 var invertNum = function invertNum(num) {
   return Number(num * -1);
+};
+
+var invertNumResult = function invertNumResult() {
+  ///Reduce array to single number 
+  equals(); ////Get inversion
+
+  var negNum = Number(invertNum(equationArr[equationArr.length - 1])); ///Remove "+/-" from array
+
+  buttonVal = null; ///Set recent number to inversion
+
+  equationArr[equationArr.length - 1] = negNum;
 }; //////Total/literal array length/////////////////////////////////////////////////////
 
 
@@ -176,7 +187,7 @@ var equals = function equals() {
     var decimalSpace = 0;
 
     if (Number.isInteger(result) == false) {
-      decimalSpace = screenWidth - checkDecimal(result); //console.log(decimalSpace);
+      decimalSpace = Math.max(checkDecimal(result) + 1, screenWidth - checkDecimal(result)); //console.log(decimalSpace);
     } ///Set equation array to result
 
 

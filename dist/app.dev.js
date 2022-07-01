@@ -1,36 +1,36 @@
 "use strict";
 
-var index, currDisplay;
 var equationArr = [];
-var screen = document.getElementById("Calculator__display"); //const operators = ["+", "-", "*", "/", "%"];
-
+var screen = document.getElementById("Calculator__display");
 var containsOperator = false;
-var screenWidth = 9; //// Operator boolean /////////////////////////////////////////////////////////////
+var screenWidth = 9;
+var operators = ["+", "-", "/", "*", "%"]; //// Operator boolean /////////////////////////////////////////////////////////////
 
 var boolOperator = function boolOperator() {
   containsOperator = true;
-}; ////Check for operator //////////////////////////////////////////////
-
-
-var operatorCheck = function operatorCheck(num) {
-  ///Reset to result to allow further inputs
-  if (num.classList.contains("Calculator__operator")) //&& (containsOperator == true)) 
-    {
-      return equals();
-    } else {
-    return;
-  }
 }; ////Highlight operator button /////////////////
 
 
 var highlightOperator = function highlightOperator(btn) {
   ///Check if most recent press is an operator 
-  if (boolOperator == true && Number(equationArr[equationArr.length - 1]) == NaN) {
-    ////remove operator from display
+  if (isNaN(Number(equationArr[equationArr.length - 1]))) {
+    console.log("operator"); ////remove operator from display
+
     screen.innerHTML = equationArr[equationArr.length - 2]; ///Highlight button 
 
-    btn.classList.add("current");
+    return btn.classList.add("current");
   } else return;
+}; ////Check for operator //////////////////////////////////////////////
+
+
+var operatorCheck = function operatorCheck(num) {
+  ///Reset to result to allow further inputs
+  if (num.classList.contains("Calculator__operator")) {
+    highlightOperator(num);
+    return equals();
+  } else {
+    return;
+  }
 }; ///Negate / Invert //////////////////////////////////////////////////////////////////
 
 
@@ -54,32 +54,39 @@ var getValue = function getValue(num) {
 
   if (equationArr[0] == 0) {
     equationArr = [];
-  } ////////////////////////////
+  } //Operators
 
 
   operatorCheck(num);
-  highlightOperator(num); ////////////////////////////////////
-  ///////////////////////////////////
 
   if (buttonVal == "+/-") {
-    equals();
-    console.log(Number(equationArr[equationArr.length - 1]));
+    ///Reduce array to single number 
+    equals(); ////Get inversion
+
     var negNum = Number(invertNum(equationArr[equationArr.length - 1])); ///Remove "+/-" from array
 
     buttonVal = null; ///Set recent number to inversion
 
     equationArr[equationArr.length - 1] = negNum;
-  } ///////////////////////////////////////
+  } ////Check length & return /do nothing if number too long   
 
 
-  var totalLength = totalArrLength(equationArr); ////Check length & return /do nothing if number too long    
+  var totalLength = totalArrLength(equationArr);
 
   if (equationArr.length < screenWidth && totalLength < screenWidth) {
     ///Pass value to equation array
     equationArr.push(buttonVal);
     console.log("array:" + equationArr); ///Pass array to display
 
-    return screen.innerHTML = equationArr.join("");
+    var opIndex = 0;
+
+    for (i = 0; i < equationArr.length; i++) {
+      if (operators.includes(equationArr[i])) {
+        opIndex = i;
+      }
+    }
+
+    return screen.innerHTML = equationArr.slice(opIndex).join("");
   } else {
     return equals();
   }

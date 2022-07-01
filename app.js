@@ -1,16 +1,17 @@
 
 
-let index, currDisplay;
+
 let equationArr = [];
 const screen = document.getElementById("Calculator__display");
-//const operators = ["+", "-", "*", "/", "%"];
+
 
 let containsOperator = false;
 
 const screenWidth = 9;
 
-//// Operator boolean /////////////////////////////////////////////////////////////
+let operators = ["+","-","/","*","%"];
 
+//// Operator boolean /////////////////////////////////////////////////////////////
 
 
 const boolOperator = () => {
@@ -19,6 +20,23 @@ const boolOperator = () => {
     
 }
 
+////Highlight operator button /////////////////
+
+const highlightOperator = (btn) => {
+
+    ///Check if most recent press is an operator 
+    if(isNaN(Number(equationArr[equationArr.length-1]))) {
+
+            console.log("operator");
+            ////remove operator from display
+
+            screen.innerHTML = equationArr[equationArr.length-2];
+
+            ///Highlight button 
+            return btn.classList.add("current");
+        }
+    else return;
+}
 
 ////Check for operator //////////////////////////////////////////////
 
@@ -27,32 +45,17 @@ const operatorCheck = (num) => {
     ///Reset to result to allow further inputs
 
     if((num.classList.contains("Calculator__operator")) 
-    //&& (containsOperator == true)) 
+    
     ){
-
+        highlightOperator(num);
+        
         return equals();
     }
     else {return;}
 
 }
 
-////Highlight operator button /////////////////
 
-const highlightOperator = (btn) => {
-
-    ///Check if most recent press is an operator 
-    if(boolOperator == true 
-        && Number(equationArr[equationArr.length-1]) == NaN) {
-
-            ////remove operator from display
-
-            screen.innerHTML = equationArr[equationArr.length-2];
-
-            ///Highlight button 
-            btn.classList.add("current")
-        }
-    else return;
-}
 
 ///Negate / Invert //////////////////////////////////////////////////////////////////
 
@@ -82,44 +85,53 @@ const totalArrLength = (arr) => {
 
 ///////////Get value of button ///////////////////////////////////////////////////
 
-const getValue = (num) => {
+const getValue = (num) => { 
 
     //Get value of button
     let buttonVal = num.innerHTML;
     //Clear zero
     if(equationArr[0] == 0) { equationArr = [];}
 
-////////////////////////////
+   //Operators
     operatorCheck(num);
-    highlightOperator(num);
-////////////////////////////////////
-///////////////////////////////////
+    
+
     if(buttonVal == "+/-") {
 
+        ///Reduce array to single number 
         equals();
-        console.log(Number(equationArr[equationArr.length-1]));
+        ////Get inversion
         let negNum = Number(invertNum(equationArr[equationArr.length-1]));
-        
         ///Remove "+/-" from array
         buttonVal = null;
         ///Set recent number to inversion
         equationArr[equationArr.length-1] = negNum;
         
     }
-    ///////////////////////////////////////
 
-    let totalLength = totalArrLength(equationArr);
+    ////Check length & return /do nothing if number too long   
+    let totalLength = totalArrLength(equationArr); 
 
-    ////Check length & return /do nothing if number too long    
     if((equationArr.length < screenWidth)
       && (totalLength < screenWidth)) {
-        ///Pass value to equation array
-        equationArr.push(buttonVal);
-        console.log("array:" + equationArr); 
 
-        ///Pass array to display
-        
-        return screen.innerHTML = equationArr.join(""); 
+            ///Pass value to equation array
+            equationArr.push(buttonVal);
+            console.log("array:" + equationArr); 
+
+            ///Pass array to display
+
+            let opIndex = 0;
+
+            
+            for(i=0; i<equationArr.length; i++) {
+
+                if(operators.includes(equationArr[i])) {
+                    opIndex = i;
+                }
+            }
+            
+            return screen.innerHTML = equationArr.slice(opIndex).join(""); 
         
         
     }
@@ -127,7 +139,6 @@ const getValue = (num) => {
     
             
 };
-
 
 
 ///Clear current equation //////////////////////////////////////////////////////////
@@ -139,8 +150,6 @@ const clearEquation = () => {
 }
 
 
-
-
 ////Check decimals function///////////////////////////////////////////////////////////////
 
 const checkDecimal = (num) => {
@@ -150,7 +159,6 @@ const checkDecimal = (num) => {
         return 1;
     }
     else {
-
 
         return num.toString().split(".")[0].length;
     }
@@ -207,7 +215,6 @@ const equals = () => {
             ///Pass result to screen
             screen.innerHTML = equationArr[equationArr.length-1];
 
-            
             //Reset operator bool
             containsOperator = false;
             //console.log(result);

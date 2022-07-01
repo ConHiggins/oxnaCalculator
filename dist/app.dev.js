@@ -36,13 +36,15 @@ var resetButtons = function resetButtons() {
 }; ////Check for operator //////////////////////////////////////////////
 
 
-var operatorCheck = function operatorCheck(num) {
+var operatorCheck = function operatorCheck(arr) {
   ///Reset to result to allow further inputs
-  if (num.classList.contains("Calculator__operator")) {
-    highlightOperator(num);
-    return equals();
-  } else {
-    return;
+  for (i = 0; i < arr.length; i++) {
+    if (arr[i].classList.contains("Calculator__operator")) {
+      highlightOperator(arr[i]);
+      return equals();
+    } else {
+      return;
+    }
   }
 }; ///Negate / Invert //////////////////////////////////////////////////////////////////
 
@@ -52,11 +54,16 @@ var invertNum = function invertNum(num) {
 }; //////Total/literal array length/////////////////////////////////////////////////////
 
 
-var totalArrLength = function totalArrLength(arr) {
+var totalArrLength = function totalArrLength(arr, startIndex) {
   var total = 0;
-  arr.forEach(function (item) {
-    total += item.toString().length;
-  });
+
+  for (i = startIndex; i < arr.length; i++) {
+    //arr.forEach((item) => {
+    total += arr[i].toString().length;
+    console.log("total:" + total);
+  } //)
+
+
   return Number(total);
 }; //////Check exponentials ////////////////////////////////////////////////////////////////
 
@@ -100,17 +107,25 @@ var getValue = function getValue(num) {
 
   if (buttonVal == "." && containsDecimal(equationArr) == true) {
     return;
+  }
+
+  var opIndex = 0;
+
+  for (i = 0; i < equationArr.length; i++) {
+    if (operators.includes(equationArr[i])) {
+      opIndex = i;
+    }
   } ////Check length & return /do nothing if number too long   
 
 
-  var totalLength = totalArrLength(equationArr);
+  var totalLength = totalArrLength(equationArr, 0) - opIndex;
 
-  if (equationArr.length < screenWidth && totalLength < screenWidth && buttonVal !== null) {
+  if (totalLength < screenWidth && buttonVal !== null) {
     ///Pass value to equation array
     equationArr.push(buttonVal);
     console.log("array:" + equationArr); ///Pass array to display
 
-    var opIndex = 0;
+    opIndex = 0;
 
     for (i = 0; i < equationArr.length; i++) {
       if (operators.includes(equationArr[i])) {
@@ -144,8 +159,8 @@ var checkDecimal = function checkDecimal(num) {
 
 
 var equals = function equals() {
-  ///Clear if equation starts with operator other than + or -
-  if (equationArr[0] == "/" || equationArr[0] == "*" || equationArr[0] == "%") {
+  ///Clear if equation starts with operator 
+  if (operators.includes(equationArr[0])) {
     resetButtons();
     return clearEquation();
   } else {

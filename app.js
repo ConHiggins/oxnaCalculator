@@ -58,18 +58,21 @@ const resetButtons = () => {
 
 ////Check for operator //////////////////////////////////////////////
 
-const operatorCheck = (num) => {
+const operatorCheck = (arr) => {
 
     ///Reset to result to allow further inputs
 
-    if((num.classList.contains("Calculator__operator")) 
-    
-    ){
-        highlightOperator(num);
-        
-        return equals();
-    }
-    else {return;}
+    for(i=0; i<arr.length; i++) {
+
+            if((arr[i].classList.contains("Calculator__operator")) 
+            
+            ){
+                highlightOperator(arr[i]);
+                
+                return equals();
+            }
+            else {return;}
+        }
 
 }
 
@@ -88,15 +91,17 @@ const invertNum = (num) => {
 
 //////Total/literal array length/////////////////////////////////////////////////////
 
-const totalArrLength = (arr) => {
+const totalArrLength = (arr, startIndex) => {
 
 
     let total = 0;
-    arr.forEach((item) => {
 
-        total += item.toString().length;
+    for(i = startIndex; i<arr.length; i++) {
+    //arr.forEach((item) => {
 
-    })
+        total += arr[i].toString().length;
+        console.log("total:" + total);
+    }//)
 
     return Number(total);
 }
@@ -161,11 +166,18 @@ const getValue = (num) => {
         return;
     }
 
-    ////Check length & return /do nothing if number too long   
-    let totalLength = totalArrLength(equationArr); 
+    let opIndex = 0;
 
-    if((equationArr.length < screenWidth)
-      && (totalLength < screenWidth)
+            for(i=0; i<equationArr.length; i++) {
+
+                if(operators.includes(equationArr[i])) {
+                    opIndex = i;
+                }
+            }
+    ////Check length & return /do nothing if number too long   
+    let totalLength = totalArrLength(equationArr, 0) - opIndex; 
+
+    if((totalLength < screenWidth)
       && (buttonVal !== null)) {
         
 
@@ -175,7 +187,7 @@ const getValue = (num) => {
 
             ///Pass array to display
 
-            let opIndex = 0;
+            opIndex = 0;
 
             for(i=0; i<equationArr.length; i++) {
 
@@ -228,10 +240,8 @@ const checkDecimal = (num) => {
 
 const equals = () => {
 
-    ///Clear if equation starts with operator other than + or -
-    if((equationArr[0] == "/")
-    || (equationArr[0] == "*") 
-    || (equationArr[0] == "%")) {
+    ///Clear if equation starts with operator 
+    if(operators.includes(equationArr[0])) {
 
         resetButtons();
         return clearEquation();

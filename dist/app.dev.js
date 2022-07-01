@@ -5,11 +5,12 @@ var equationArr = [];
 var screen = document.getElementById("Calculator__display"); //const operators = ["+", "-", "*", "/", "%"];
 
 var containsOperator = false;
-var screenWidth = 9; ////Get button inputs /////////////////////////////////////////////////////////////
+var screenWidth = 9; //// Operator boolean /////////////////////////////////////////////////////////////
 
 var boolOperator = function boolOperator() {
   containsOperator = true;
-};
+}; ////Check for operator //////////////////////////////////////////////
+
 
 var operatorCheck = function operatorCheck(num) {
   ///Reset to result to allow further inputs
@@ -19,7 +20,27 @@ var operatorCheck = function operatorCheck(num) {
     } else {
     return;
   }
-};
+}; ///Negate / Invert //////////////////////////////////////////////////////////////////
+
+
+var invertNum = function invertNum(num) {
+  ///Check for operators 
+  if (boolOperator == false) {
+    return Number(num * -1);
+  } else {
+    return;
+  }
+}; //////Total/literal array length/////////////////////////////////////////////////////
+
+
+var totalArrLength = function totalArrLength(arr) {
+  var total = 0;
+  arr.forEach(function (item) {
+    total += item.toString().length;
+  });
+  return Number(total);
+}; ///////////Get value of button ///////////////////////////////////////////////////
+
 
 var getValue = function getValue(num) {
   //Get value of button
@@ -29,16 +50,25 @@ var getValue = function getValue(num) {
     equationArr = [];
   }
 
-  operatorCheck(num); ////Check length & return /do nothing if number too long    
+  operatorCheck(num);
 
-  if (equationArr.length < screenWidth) {
+  if (buttonVal == "+/-") {
+    console.log(Number(equationArr[equationArr.length - 1]));
+    var negNum = invertNum(Number(equationArr[equationArr.length - 1]));
+    buttonVal = null;
+    equationArr[equationArr.length - 1] = Number(negNum);
+  }
+
+  var totalLength = totalArrLength(equationArr); ////Check length & return /do nothing if number too long    
+
+  if (equationArr.length < screenWidth && totalLength < screenWidth) {
     ///Pass value to equation array
     equationArr.push(buttonVal);
     console.log("array:" + equationArr); ///Pass array to display
 
     return screen.innerHTML = equationArr.join("");
   } else {
-    return;
+    return equals();
   }
 }; ///Clear current equation //////////////////////////////////////////////////////////
 
@@ -46,23 +76,7 @@ var getValue = function getValue(num) {
 var clearEquation = function clearEquation() {
   equationArr = [];
   screen.innerHTML = equationArr;
-}; ///Negate / Invert //////////////////////////////////////////////////////////////////
-// const invertNum = (num) => {
-//     ///Check for operators 
-//     //const reg = /((+)|(-)|(\/)|(*))/ ;
-//     //let containsOperator = reg.test(equationArr);
-//     let reg1 = /+/;
-//     let reg2 = /-/;
-//     let reg3 = /\//;
-//     let reg4 = /\*/;
-//     let fullCheck = (reg1 && reg2 && reg3 && reg4);
-//     ///Get value on screen
-//     if(!fullCheck) {
-//         return num *= -1;
-//     }
-//     else {return;}
-// }
-////Check decimals function
+}; ////Check decimals function///////////////////////////////////////////////////////////////
 
 
 var checkDecimal = function checkDecimal(num) {
@@ -70,6 +84,15 @@ var checkDecimal = function checkDecimal(num) {
     return 1;
   } else {
     return num.toString().split(".")[0].length;
+  }
+}; //////Check exponentials ////////////////////////////////////////////////////////////////
+
+
+var checkNumLength = function checkNumLength(num) {
+  if (num.toString.length() > screenWidth - 1) {
+    return num = num.toExponential(4);
+  } else {
+    return;
   }
 }; ////Run users equation ////////////////////////////////////////////////////////////////////
 
@@ -81,13 +104,13 @@ var equals = function equals() {
   } else {
     ///Run equation array as mathematical function 
     var result = Function("return " + equationArr.join(""))(); ////Important to have () at the end as it executes it as a function (rather than printing the function)
+    //checkNumLength(result);
     ///var for remaining space 
 
     var decimalSpace = 0;
 
     if (Number.isInteger(result) == false) {
-      decimalSpace = screenWidth - checkDecimal(result);
-      console.log(decimalSpace);
+      decimalSpace = screenWidth - checkDecimal(result); //console.log(decimalSpace);
     } ///Set equation array to result
 
 
@@ -95,7 +118,6 @@ var equals = function equals() {
 
     screen.innerHTML = equationArr[equationArr.length - 1]; //Reset operator bool
 
-    containsOperator = false;
-    console.log(result);
+    containsOperator = false; //console.log(result);
   }
 };

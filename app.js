@@ -9,14 +9,18 @@ let containsOperator = false;
 
 const screenWidth = 9;
 
-////Get button inputs /////////////////////////////////////////////////////////////
+//// Operator boolean /////////////////////////////////////////////////////////////
 
 
 
 const boolOperator = () => {
 
     containsOperator = true;
+    
 }
+
+
+////Check for operator //////////////////////////////////////////////
 
 const operatorCheck = (num) => {
 
@@ -32,6 +36,39 @@ const operatorCheck = (num) => {
 
 }
 
+///Negate / Invert //////////////////////////////////////////////////////////////////
+
+
+const invertNum = (num) => {
+
+    ///Check for operators 
+
+
+    if(boolOperator == false) {
+
+        return Number(num * -1);
+    }
+    else {return;}
+}
+
+
+
+//////Total/literal array length/////////////////////////////////////////////////////
+
+const totalArrLength = (arr) => {
+
+
+    let total = 0;
+    arr.forEach((item) => {
+
+        total += item.toString().length;
+
+    })
+
+    return Number(total);
+}
+
+///////////Get value of button ///////////////////////////////////////////////////
 
 const getValue = (num) => {
 
@@ -42,21 +79,38 @@ const getValue = (num) => {
 
     operatorCheck(num);
 
+    if(buttonVal == "+/-") {
+
+        console.log(Number(equationArr[equationArr.length-1]));
+        let negNum = invertNum(Number(equationArr[equationArr.length-1]))
+        
+
+        buttonVal = null;
+        equationArr[equationArr.length-1] = Number(negNum);
+        
+    }
+
+    let totalLength = totalArrLength(equationArr);
+
     ////Check length & return /do nothing if number too long    
-    if(equationArr.length < screenWidth) {
+    if((equationArr.length < screenWidth)
+      && (totalLength < screenWidth)) {
 
         
         
 
         ///Pass value to equation array
         equationArr.push(buttonVal);
-        
         console.log("array:" + equationArr); 
 
         ///Pass array to display
-        return screen.innerHTML = equationArr.join("");
+        
+        return screen.innerHTML = equationArr.join(""); 
+        
+        
     }
-    else {return;}
+    else {return equals();}
+    
             
 };
 
@@ -71,33 +125,9 @@ const clearEquation = () => {
 }
 
 
-///Negate / Invert //////////////////////////////////////////////////////////////////
 
 
-// const invertNum = (num) => {
-
-//     ///Check for operators 
-
-//     //const reg = /((+)|(-)|(\/)|(*))/ ;
-//     //let containsOperator = reg.test(equationArr);
-
-//     let reg1 = /+/;
-//     let reg2 = /-/;
-//     let reg3 = /\//;
-//     let reg4 = /\*/;
-
-//     let fullCheck = (reg1 && reg2 && reg3 && reg4);
-
-//     ///Get value on screen
-
-//     if(!fullCheck) {
-
-//         return num *= -1;
-//     }
-//     else {return;}
-// }
-
-////Check decimals function
+////Check decimals function///////////////////////////////////////////////////////////////
 
 const checkDecimal = (num) => {
 
@@ -112,6 +142,20 @@ const checkDecimal = (num) => {
     }
 }
 
+
+
+//////Check exponentials ////////////////////////////////////////////////////////////////
+
+
+const checkNumLength = (num) => {
+
+    if(num.toString.length() > (screenWidth-1)) {
+
+        return num = num.toExponential(4);
+    }
+
+    else {return;}
+} 
 
 ////Run users equation ////////////////////////////////////////////////////////////////////
 
@@ -130,15 +174,19 @@ const equals = () => {
             ///Run equation array as mathematical function 
             let result = Function("return " + equationArr.join(""))();  ////Important to have () at the end as it executes it as a function (rather than printing the function)
 
+            //checkNumLength(result);
+
+
             ///var for remaining space 
             let decimalSpace = 0;
 
             if(Number.isInteger(result) == false) {
                     
                     decimalSpace = screenWidth - checkDecimal(result);
-                    console.log(decimalSpace);
+                    //console.log(decimalSpace);
                 }   
 
+            
             ///Set equation array to result
             equationArr = [result.toFixed(decimalSpace)];
             
@@ -148,10 +196,9 @@ const equals = () => {
             
             //Reset operator bool
             containsOperator = false;
-            console.log(result);
+            //console.log(result);
     }
 }
-
 
 
 

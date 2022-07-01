@@ -13,7 +13,7 @@ const invertNum = (num) => {
 }
 
 
-invertNum(1);
+invertNum("10");
 
 //////Total/literal array length
 

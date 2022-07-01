@@ -36,19 +36,31 @@ const operatorCheck = (num) => {
 
 }
 
+////Highlight operator button /////////////////
+
+const highlightOperator = (btn) => {
+
+    ///Check if most recent press is an operator 
+    if(boolOperator == true 
+        && Number(equationArr[equationArr.length-1]) == NaN) {
+
+            ////remove operator from display
+
+            screen.innerHTML = equationArr[equationArr.length-2];
+
+            ///Highlight button 
+            btn.classList.add("current")
+        }
+    else return;
+}
+
 ///Negate / Invert //////////////////////////////////////////////////////////////////
 
 
 const invertNum = (num) => {
 
-    ///Check for operators 
-
-
-    if(boolOperator == false) {
-
         return Number(num * -1);
-    }
-    else {return;}
+    
 }
 
 
@@ -77,28 +89,30 @@ const getValue = (num) => {
     //Clear zero
     if(equationArr[0] == 0) { equationArr = [];}
 
+////////////////////////////
     operatorCheck(num);
-
+    highlightOperator(num);
+////////////////////////////////////
+///////////////////////////////////
     if(buttonVal == "+/-") {
 
+        equals();
         console.log(Number(equationArr[equationArr.length-1]));
-        let negNum = invertNum(Number(equationArr[equationArr.length-1]))
+        let negNum = Number(invertNum(equationArr[equationArr.length-1]));
         
-
+        ///Remove "+/-" from array
         buttonVal = null;
-        equationArr[equationArr.length-1] = Number(negNum);
+        ///Set recent number to inversion
+        equationArr[equationArr.length-1] = negNum;
         
     }
+    ///////////////////////////////////////
 
     let totalLength = totalArrLength(equationArr);
 
     ////Check length & return /do nothing if number too long    
     if((equationArr.length < screenWidth)
       && (totalLength < screenWidth)) {
-
-        
-        
-
         ///Pass value to equation array
         equationArr.push(buttonVal);
         console.log("array:" + equationArr); 

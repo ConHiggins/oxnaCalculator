@@ -8,7 +8,7 @@ var invertNum = function invertNum(num) {
   return;
 };
 
-invertNum(1); //////Total/literal array length
+invertNum("10"); //////Total/literal array length
 
 var totalArLength = function totalArLength(arr) {
   var total = 0;

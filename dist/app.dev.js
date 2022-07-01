@@ -16,10 +16,23 @@ var highlightOperator = function highlightOperator(btn) {
   if (isNaN(Number(equationArr[equationArr.length - 1]))) {
     console.log("operator"); ////remove operator from display
 
-    screen.innerHTML = equationArr[equationArr.length - 2]; ///Highlight button 
+    screen.innerHTML = equationArr.slice(0, equationArr.length - 1).join(""); ///Highlight button 
 
     return btn.classList.add("current");
   } else return;
+}; ///// Reset operator buttons to inactive ////
+
+
+var resetButtons = function resetButtons() {
+  var activeButtons = document.getElementsByClassName("current");
+  console.log(activeButtons);
+
+  for (i = 0; i < activeButtons.length; i++) {
+    console.log("removed");
+    activeButtons[i].classList.remove("current");
+  }
+
+  ;
 }; ////Check for operator //////////////////////////////////////////////
 
 
@@ -45,6 +58,15 @@ var totalArrLength = function totalArrLength(arr) {
     total += item.toString().length;
   });
   return Number(total);
+}; //////Check exponentials ////////////////////////////////////////////////////////////////
+
+
+var checkNumLength = function checkNumLength(num) {
+  if (num.toString.length > screenWidth - 1) {
+    return num = num.toExponential(4);
+  } else {
+    return;
+  }
 }; ///////////Get value of button ///////////////////////////////////////////////////
 
 
@@ -54,10 +76,9 @@ var getValue = function getValue(num) {
 
   if (equationArr[0] == 0) {
     equationArr = [];
-  } //Operators
+  }
 
-
-  operatorCheck(num);
+  checkNumLength(buttonVal);
 
   if (buttonVal == "+/-") {
     ///Reduce array to single number 
@@ -86,7 +107,9 @@ var getValue = function getValue(num) {
       }
     }
 
-    return screen.innerHTML = equationArr.slice(opIndex).join("");
+    screen.innerHTML = equationArr.slice(opIndex).join(""); //Operators
+
+    return operatorCheck(num);
   } else {
     return equals();
   }
@@ -105,24 +128,20 @@ var checkDecimal = function checkDecimal(num) {
   } else {
     return num.toString().split(".")[0].length;
   }
-}; //////Check exponentials ////////////////////////////////////////////////////////////////
-
-
-var checkNumLength = function checkNumLength(num) {
-  if (num.toString.length() > screenWidth - 1) {
-    return num = num.toExponential(4);
-  } else {
-    return;
-  }
 }; ////Run users equation ////////////////////////////////////////////////////////////////////
 
 
 var equals = function equals() {
   ///Clear if equation starts with operator other than + or -
   if (equationArr[0] == "/" || equationArr[0] == "*" || equationArr[0] == "%") {
+    resetButtons();
     return clearEquation();
   } else {
-    ///Run equation array as mathematical function 
+    if (!isNaN(equationArr[equationArr.length - 1])) {
+      resetButtons();
+    } ///Run equation array as mathematical function 
+
+
     var result = Function("return " + equationArr.join(""))(); ////Important to have () at the end as it executes it as a function (rather than printing the function)
     //checkNumLength(result);
     ///var for remaining space 

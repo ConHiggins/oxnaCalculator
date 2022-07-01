@@ -30,12 +30,30 @@ const highlightOperator = (btn) => {
             console.log("operator");
             ////remove operator from display
 
-            screen.innerHTML = equationArr[equationArr.length-2];
+            screen.innerHTML = equationArr.slice(0,equationArr.length-1).join("");
 
             ///Highlight button 
             return btn.classList.add("current");
         }
     else return;
+}
+
+///// Reset operator buttons to inactive ////
+
+const resetButtons = () => {
+
+    const activeButtons = document.getElementsByClassName("current");
+    
+
+    console.log(activeButtons);
+    for(i=0; i<activeButtons.length; i++) {
+
+        console.log("removed");
+
+        activeButtons[i].classList.remove("current");
+        
+    };
+
 }
 
 ////Check for operator //////////////////////////////////////////////
@@ -83,6 +101,19 @@ const totalArrLength = (arr) => {
     return Number(total);
 }
 
+//////Check exponentials ////////////////////////////////////////////////////////////////
+
+
+const checkNumLength = (num) => {
+
+    if(num.toString.length > (screenWidth-1)) {
+
+        return num = num.toExponential(4);
+    }
+
+    else {return;}
+} 
+
 ///////////Get value of button ///////////////////////////////////////////////////
 
 const getValue = (num) => { 
@@ -92,8 +123,10 @@ const getValue = (num) => {
     //Clear zero
     if(equationArr[0] == 0) { equationArr = [];}
 
-   //Operators
-    operatorCheck(num);
+    
+
+        checkNumLength(buttonVal);
+    
     
 
     if(buttonVal == "+/-") {
@@ -114,10 +147,13 @@ const getValue = (num) => {
 
     if((equationArr.length < screenWidth)
       && (totalLength < screenWidth)) {
+        
 
             ///Pass value to equation array
             equationArr.push(buttonVal);
             console.log("array:" + equationArr); 
+
+            
 
             ///Pass array to display
 
@@ -131,7 +167,10 @@ const getValue = (num) => {
                 }
             }
             
-            return screen.innerHTML = equationArr.slice(opIndex).join(""); 
+
+            screen.innerHTML = equationArr.slice(opIndex).join(""); 
+            //Operators
+            return operatorCheck(num);
         
         
     }
@@ -166,18 +205,7 @@ const checkDecimal = (num) => {
 
 
 
-//////Check exponentials ////////////////////////////////////////////////////////////////
 
-
-const checkNumLength = (num) => {
-
-    if(num.toString.length() > (screenWidth-1)) {
-
-        return num = num.toExponential(4);
-    }
-
-    else {return;}
-} 
 
 ////Run users equation ////////////////////////////////////////////////////////////////////
 
@@ -188,10 +216,13 @@ const equals = () => {
     || (equationArr[0] == "*") 
     || (equationArr[0] == "%")) {
 
+        resetButtons();
         return clearEquation();
     }
 
     else {
+        if(!isNaN(equationArr[equationArr.length-1]))
+            { resetButtons(); }
 
             ///Run equation array as mathematical function 
             let result = Function("return " + equationArr.join(""))();  ////Important to have () at the end as it executes it as a function (rather than printing the function)

@@ -3,7 +3,8 @@
 var equationArr = [];
 var screen = document.getElementById("Calculator__display");
 var containsOperator = false;
-var screenWidth = 9;
+var screenWidth = 10;
+var currLength = 0;
 var operators = ["+", "-", "/", "*", "%"]; //// Operator boolean /////////////////////////////////////////////////////////////
 
 var boolOperator = function boolOperator() {
@@ -25,7 +26,6 @@ var highlightOperator = function highlightOperator(btn) {
 
 var resetButtons = function resetButtons() {
   var activeButtons = document.getElementsByClassName("current");
-  console.log(activeButtons);
 
   for (i = 0; i < activeButtons.length; i++) {
     console.log("removed");
@@ -67,6 +67,13 @@ var checkNumLength = function checkNumLength(num) {
   } else {
     return;
   }
+}; ////Avoid multiple decimals 
+
+
+var containsDecimal = function containsDecimal(arr) {
+  if (arr.includes(".")) {
+    return true;
+  } else return false;
 }; ///////////Get value of button ///////////////////////////////////////////////////
 
 
@@ -89,12 +96,16 @@ var getValue = function getValue(num) {
     buttonVal = null; ///Set recent number to inversion
 
     equationArr[equationArr.length - 1] = negNum;
+  }
+
+  if (buttonVal == "." && containsDecimal(equationArr) == true) {
+    return;
   } ////Check length & return /do nothing if number too long   
 
 
   var totalLength = totalArrLength(equationArr);
 
-  if (equationArr.length < screenWidth && totalLength < screenWidth) {
+  if (equationArr.length < screenWidth && totalLength < screenWidth && buttonVal !== null) {
     ///Pass value to equation array
     equationArr.push(buttonVal);
     console.log("array:" + equationArr); ///Pass array to display
@@ -117,6 +128,7 @@ var getValue = function getValue(num) {
 
 
 var clearEquation = function clearEquation() {
+  resetButtons();
   equationArr = [];
   screen.innerHTML = equationArr;
 }; ////Check decimals function///////////////////////////////////////////////////////////////

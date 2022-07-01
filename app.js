@@ -7,7 +7,9 @@ const screen = document.getElementById("Calculator__display");
 
 let containsOperator = false;
 
-const screenWidth = 9;
+const screenWidth = 10;
+
+let currLength = 0;
 
 let operators = ["+","-","/","*","%"];
 
@@ -44,8 +46,6 @@ const resetButtons = () => {
 
     const activeButtons = document.getElementsByClassName("current");
     
-
-    console.log(activeButtons);
     for(i=0; i<activeButtons.length; i++) {
 
         console.log("removed");
@@ -114,6 +114,20 @@ const checkNumLength = (num) => {
     else {return;}
 } 
 
+
+////Avoid multiple decimals 
+
+const containsDecimal = (arr) => {
+
+    if(arr.includes(".")) {
+
+        return true;
+    }
+
+    else return false;
+
+}
+
 ///////////Get value of button ///////////////////////////////////////////////////
 
 const getValue = (num) => { 
@@ -142,31 +156,33 @@ const getValue = (num) => {
         
     }
 
+    if(buttonVal == "." && containsDecimal(equationArr) == true){
+
+        return;
+    }
+
     ////Check length & return /do nothing if number too long   
     let totalLength = totalArrLength(equationArr); 
 
     if((equationArr.length < screenWidth)
-      && (totalLength < screenWidth)) {
+      && (totalLength < screenWidth)
+      && (buttonVal !== null)) {
         
 
             ///Pass value to equation array
             equationArr.push(buttonVal);
             console.log("array:" + equationArr); 
 
-            
-
             ///Pass array to display
 
             let opIndex = 0;
 
-            
             for(i=0; i<equationArr.length; i++) {
 
                 if(operators.includes(equationArr[i])) {
                     opIndex = i;
                 }
             }
-            
 
             screen.innerHTML = equationArr.slice(opIndex).join(""); 
             //Operators
@@ -184,6 +200,7 @@ const getValue = (num) => {
 
 const clearEquation = () => {
 
+    resetButtons();
     equationArr = [];
     screen.innerHTML = equationArr;
 }
@@ -251,8 +268,6 @@ const equals = () => {
             //console.log(result);
     }
 }
-
-
 
 
 

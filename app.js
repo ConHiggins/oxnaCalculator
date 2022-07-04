@@ -210,7 +210,7 @@ const getValue = (num) => {
         
         
     }
-    else {return equals();}
+    //else {return equals();}
     
             
 };

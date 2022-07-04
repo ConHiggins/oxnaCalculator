@@ -138,9 +138,8 @@ var getValue = function getValue(num) {
     screen.innerHTML = equationArr.slice(opIndex).join(""); //Operators
 
     return;
-  } else {
-    return equals();
-  }
+  } //else {return equals();}
+
 }; ///Clear current equation //////////////////////////////////////////////////////////
 
 

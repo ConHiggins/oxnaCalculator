@@ -5,10 +5,15 @@
   scroll-behavior: smooth;
 }
 
+html {
+  height: 100%;
+}
+
 body {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: linear-gradient(0deg, #FCAA67 0%, #B0413E 40%, #473335 90%);
 }
 
 @media screen and (min-width: 320px) {

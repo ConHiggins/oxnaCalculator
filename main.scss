@@ -28,49 +28,79 @@ body {
 
 @media screen and (min-width:320px ) {
     
+    .Calculator {
+
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+        gap: 0.5rem;
+        margin: 1rem;
+        margin-top: 6rem;
+        padding: 1rem;
+        height: 32rem;
+        width: 22rem;
+    }
 
 
-.Calculator {
+.Calculator_red {
 
 
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
-    gap: 0.5rem;
-    margin: 1rem;
-    margin-top: 6rem;
-    padding: 1rem;
-    height: 32rem;
-    width: 22rem;
+    
     background: rgb(33,36,0);
-background: linear-gradient(0deg, 
-                        $bg-col 0%, 
-                            $mid-col 70%, 
-                                $highlight-col 100%);
+    background: linear-gradient(0deg, 
+                            $bg-col 0%, 
+                                $mid-col 70%, 
+                                    $highlight-col 100%);
     border: 4px solid $bg-col;
     border-radius: 1rem;
     box-shadow: 0.5rem 0.5rem $bg-col;
 
 }
 
+.Calculator_blue {
+
+    background: rgb(33,36,0);
+    background: linear-gradient(0deg, 
+                            $blu-bg-col 0%, 
+                                $blu-mid-col 70%, 
+                                    $blu-highlight-col 100%);
+    border: 4px solid $blu-bg-col;
+    border-radius: 1rem;
+    box-shadow: 0.5rem 0.5rem $blu-bg-col;
+
+}
 
 .Calculator__display {
 
     grid-row: 1;
     grid-column: 1 / 5;
-    border: 4px solid $bg-col;
     border-radius: 1rem;
     text-align: right;
     font-size: 4rem; 
     height:5rem;
     padding-right: 2rem;
+}
+
+.Calculator__display_red {
+
+    
+    border: 4px solid $bg-col;
     background-color: $bg-col;
     color: $light-col;
     box-shadow: 0.5rem 0.5rem $mid-col ;
 }
 
+.Calculator__display_blue {
 
-button {
+    
+    border: 4px solid $blu-bg-col;
+    background-color: $blu-bg-col;
+    color: $light-col;
+    box-shadow: 0.5rem 0.5rem $blu-mid-col ;
+}
+
+
+.Calculator__button_red {
 
     width: 4rem;
     height: 4rem;
@@ -83,7 +113,7 @@ button {
      color: $light-col;
 }
 
-button:active {
+.Calculator__button_red:active {
 
     box-shadow: -0.15rem -0.15rem $bg-col;
     
@@ -91,6 +121,29 @@ button:active {
     height: 3.9rem;
     font-size: 1.9rem;
 }
+
+.Calculator__button_blue {
+
+    width: 4rem;
+    height: 4rem;
+     margin: 0.2rem;
+     border: 4px solid $blu-mid-col;
+     border-radius: 50%;
+     font-size: 2rem;
+     background-color: $blu-mid-col;
+     box-shadow: 0.3rem 0.2rem $blu-bg-col;
+     color: $light-col;
+}
+
+.Calculator__button_blue:active {
+
+    box-shadow: -0.15rem -0.15rem $blu-bg-col;
+    
+    width: 3.9rem;
+    height: 3.9rem;
+    font-size: 1.9rem;
+}
+
 
 .current {
 

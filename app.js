@@ -11,7 +11,53 @@ const screenWidth = 9;
 
 let currLength = 0;
 
-let operators = ["+","-","/","*","%"];
+const operators = ["+","-","/","*","%"];
+
+const palettes = ["Calculator_red", "Calculator_blue"];
+const buttonPalettes = ["Calculator__button_red", "Calculator__button_blue"];
+const displayPalettes = ["Calculator__display_red", "Calculator__display_blue"];
+///// Palette cycle //////////////////////////////////////////////////////////////
+
+const switchPalette = () => {
+
+
+    const calc = document.querySelector(".Calculator");
+    const btn = document.querySelectorAll(".Calculator__button");
+    const buttonsArray = Array.from(btn);
+    const dis = document.querySelector(".Calculator__display");    
+
+
+    ////Calc background
+    const activePalette = palettes.findIndex((p) => calc.classList.contains(p));
+    const nextPalette = (activePalette + 1) % palettes.length;    
+
+    calc.classList.remove(palettes[activePalette]);
+    calc.classList.add(palettes[nextPalette]);
+
+
+    ///Calc display
+    const activeDisPalette = displayPalettes.findIndex((dp) => dis.classList.contains(dp));
+    const nextDisPalette = (activeDisPalette + 1) % displayPalettes.length;    
+
+    dis.classList.remove(displayPalettes[activeDisPalette]);
+    dis.classList.add(displayPalettes[nextDisPalette]);
+
+    
+    ///Calc buttons
+    for(i=0; i<buttonsArray.length; i++) {
+
+        const activeBtnPalette = buttonPalettes.findIndex((bp) => buttonsArray[i].classList.contains(bp));
+        const nextBtnPalette = (activeBtnPalette + 1) % buttonPalettes.length;
+
+        buttonsArray[i].classList.remove(buttonPalettes[activeBtnPalette]);
+        buttonsArray[i].classList.add(buttonPalettes[nextBtnPalette]);
+        
+    
+    }
+    
+
+
+}
 
 //// Operator boolean /////////////////////////////////////////////////////////////
 

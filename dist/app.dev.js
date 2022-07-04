@@ -5,7 +5,41 @@ var screen = document.getElementById("Calculator__display");
 var containsOperator = false;
 var screenWidth = 9;
 var currLength = 0;
-var operators = ["+", "-", "/", "*", "%"]; //// Operator boolean /////////////////////////////////////////////////////////////
+var operators = ["+", "-", "/", "*", "%"];
+var palettes = ["Calculator_red", "Calculator_blue"];
+var buttonPalettes = ["Calculator__button_red", "Calculator__button_blue"];
+var displayPalettes = ["Calculator__display_red", "Calculator__display_blue"]; ///// Palette cycle //////////////////////////////////////////////////////////////
+
+var switchPalette = function switchPalette() {
+  var calc = document.querySelector(".Calculator");
+  var btn = document.querySelectorAll(".Calculator__button");
+  var buttonsArray = Array.from(btn);
+  var dis = document.querySelector(".Calculator__display"); ////Calc background
+
+  var activePalette = palettes.findIndex(function (p) {
+    return calc.classList.contains(p);
+  });
+  var nextPalette = (activePalette + 1) % palettes.length;
+  calc.classList.remove(palettes[activePalette]);
+  calc.classList.add(palettes[nextPalette]); ///Calc display
+
+  var activeDisPalette = displayPalettes.findIndex(function (dp) {
+    return dis.classList.contains(dp);
+  });
+  var nextDisPalette = (activeDisPalette + 1) % displayPalettes.length;
+  dis.classList.remove(displayPalettes[activeDisPalette]);
+  dis.classList.add(displayPalettes[nextDisPalette]); ///Calc buttons
+
+  for (i = 0; i < buttonsArray.length; i++) {
+    var activeBtnPalette = buttonPalettes.findIndex(function (bp) {
+      return buttonsArray[i].classList.contains(bp);
+    });
+    var nextBtnPalette = (activeBtnPalette + 1) % buttonPalettes.length;
+    buttonsArray[i].classList.remove(buttonPalettes[activeBtnPalette]);
+    buttonsArray[i].classList.add(buttonPalettes[nextBtnPalette]);
+  }
+}; //// Operator boolean /////////////////////////////////////////////////////////////
+
 
 var boolOperator = function boolOperator() {
   containsOperator = true;

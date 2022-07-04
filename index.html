@@ -6,36 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
     <link rel="stylesheet" href="./main.css" >
+    <script src="https://kit.fontawesome.com/86c6ba8343.js" crossorigin="anonymous"></script>
 </head>
 <body>
     
-    <section class="Calculator">
+    <section class="Calculator Calculator_red">
 
-        <div class="Calculator__display" id="Calculator__display"></div>
+        <div class="Calculator__display Calculator__display_red" id="Calculator__display"></div>
 
-        <button class="Calculator__button Calculator__operator" id="Calculator__button-cancel" onclick="clearEquation()">AC</button>
-        <button class="Calculator__button" id="Calculator__button-posNeg" onclick="boolOperator(); getValue(this)">+/-</button>
-        <button class="Calculator__button Calculator__operator" id="Calculator__button-modulo" onclick="boolOperator(); getValue(this)">%</button>
-        <button class="Calculator__button Calculator__operator" id="Calculator__button-divide" onclick="boolOperator(); getValue(this)">/</button>
+        <button class="Calculator__button Calculator__button_red Calculator__operator" id="Calculator__button-cancel" onclick="clearEquation()">AC</button>
+        <button class="Calculator__button Calculator__button_red" id="Calculator__button-posNeg" onclick="boolOperator(); getValue(this)">+/-</button>
+        <button class="Calculator__button Calculator__button_red Calculator__operator" id="Calculator__button-modulo" onclick="boolOperator(); getValue(this)">%</button>
+        <button class="Calculator__button Calculator__button_red Calculator__operator" id="Calculator__button-divide" onclick="boolOperator(); getValue(this)">/</button>
 
-        <button class="Calculator__button Calculator__number" id="Calculator__button-7" onclick="getValue(this)">7</button>
-        <button class="Calculator__button Calculator__number" id="Calculator__button-8" onclick="getValue(this)">8</button>
-        <button class="Calculator__button Calculator__number" id="Calculator__button-9" onclick="getValue(this)">9</button>
-        <button class="Calculator__button Calculator__operator" id="Calculator__button-multiply" onclick="boolOperator(); getValue(this)">*</button>
+        <button class="Calculator__button Calculator__button_red Calculator__number" id="Calculator__button-7" onclick="getValue(this)">7</button>
+        <button class="Calculator__button Calculator__button_red Calculator__number" id="Calculator__button-8" onclick="getValue(this)">8</button>
+        <button class="Calculator__button Calculator__button_red Calculator__number" id="Calculator__button-9" onclick="getValue(this)">9</button>
+        <button class="Calculator__button Calculator__button_red Calculator__operator" id="Calculator__button-multiply" onclick="boolOperator(); getValue(this)">*</button>
 
-        <button class="Calculator__button Calculator__number" id="Calculator__button-4" onclick="getValue(this)">4</button>
-        <button class="Calculator__button Calculator__number" id="Calculator__button-5" onclick="getValue(this)">5</button>
-        <button class="Calculator__button Calculator__number" id="Calculator__button-6" onclick="getValue(this)">6</button>
-        <button class="Calculator__button Calculator__operator" id="Calculator__button-minus" onclick="boolOperator(); getValue(this)">-</button>
+        <button class="Calculator__button Calculator__button_red Calculator__number" id="Calculator__button-4" onclick="getValue(this)">4</button>
+        <button class="Calculator__button Calculator__button_red Calculator__number" id="Calculator__button-5" onclick="getValue(this)">5</button>
+        <button class="Calculator__button Calculator__button_red Calculator__number" id="Calculator__button-6" onclick="getValue(this)">6</button>
+        <button class="Calculator__button Calculator__button_red Calculator__operator" id="Calculator__button-minus" onclick="boolOperator(); getValue(this)">-</button>
 
-        <button class="Calculator__button Calculator__number" id="Calculator__button-1" onclick="getValue(this)">1</button>
-        <button class="Calculator__button Calculator__number" id="Calculator__button-2" onclick="getValue(this)">2</button>
-        <button class="Calculator__button Calculator__number" id="Calculator__button-3" onclick="getValue(this)">3</button>
-        <button class="Calculator__button Calculator__operator" id="Calculator__button-plus" onclick="boolOperator(); getValue(this)">+</button>
+        <button class="Calculator__button Calculator__button_red Calculator__number" id="Calculator__button-1" onclick="getValue(this)">1</button>
+        <button class="Calculator__button Calculator__button_red Calculator__number" id="Calculator__button-2" onclick="getValue(this)">2</button>
+        <button class="Calculator__button Calculator__button_red Calculator__number" id="Calculator__button-3" onclick="getValue(this)">3</button>
+        <button class="Calculator__button Calculator__button_red Calculator__operator" id="Calculator__button-plus" onclick="boolOperator(); getValue(this)">+</button>
         
-        <button class="Calculator__button Calculator__number" id="Calculator__button-0" onclick="getValue(this)">0</button>
-        <button class="Calculator__button" id="Calculator__button-decimal" onclick="getValue(this)">.</button>
-        <button class="Calculator__button Calculator__operator" id="Calculator__button-equals" onclick="equals()">=</button>
+        <button class="Calculator__button Calculator__button_red Calculator__number" id="Calculator__button-0" onclick="getValue(this)">0</button>
+        <button class="Calculator__button Calculator__button_red" id="Calculator__button-decimal" onclick="getValue(this)">.</button>
+        <button class="Calculator__button Calculator__button_red Calculator__operator" id="Calculator__button-equals" onclick="equals()">=</button>
+        <button class="Calculator__button Calculator__button_red" id="Calculator__button-palette" onclick="switchPalette()"><i class="fa-solid fa-palette"></i></button>
 
     </section>
 

@@ -26,8 +26,7 @@ const boolOperator = () => {
 
 const highlightOperator = (btn) => {
 
-    ///Check if most recent press is an operator 
-    if(isNaN(Number(equationArr[equationArr.length-1]))) {
+    
 
             console.log("operator");
             ////remove operator from display
@@ -35,9 +34,10 @@ const highlightOperator = (btn) => {
             screen.innerHTML = equationArr.slice(0,equationArr.length-1).join("");
 
             ///Highlight button 
-            return btn.classList.add("current");
-        }
-    else return;
+            btn.classList.add("current");
+            console.log("highlight")
+            return;
+       
 }
 
 ///// Reset operator buttons to inactive /////////////////////////////////////////////
@@ -61,17 +61,19 @@ const resetButtons = () => {
 const operatorCheck = (arr) => {
 
     ///Reset to result to allow further inputs
-
-    for(i=0; i<arr.length; i++) {
-
-            if((arr[i].classList.contains("Calculator__operator")) 
+    
+        for(i=0; i<arr.length; i++) {
+            console.log("Operator check" + i);
             
-            ){
-                highlightOperator(arr[i]);
+            if(arr[i].classList.contains("Calculator__operator")) 
+            
+            {
                 
-                return equals();
+                return highlightOperator(arr[i]);
+                
+                //return equals();
             }
-            else {return;}
+            
         }
 
 }
@@ -108,11 +110,10 @@ const totalArrLength = (arr, startIndex) => {
     let total = 0;
 
     for(i = startIndex; i<arr.length; i++) {
-    //arr.forEach((item) => {
 
         total += arr[i].toString().length;
-        console.log("total:" + total);
-    }//)
+        //console.log("total:" + total);
+    }
 
     return Number(total);
 }
@@ -122,12 +123,8 @@ const totalArrLength = (arr, startIndex) => {
 
 const checkNumLength = (num) => {
 
-    if(num.toString.length > (screenWidth-1)) {
-
-        return num = num.toExponential(4);
-    }
-
-    else {return;}
+        return num.toExponential(2);
+   
 } 
 
 
@@ -150,10 +147,11 @@ const getValue = (num) => {
 
     //Get value of button
     let buttonVal = num.innerHTML;
+    
     //Clear zero
     if(equationArr[0] == 0) { equationArr = [];}
 
-    checkNumLength(buttonVal);
+    
     
     if(buttonVal == "+/-") {
 
@@ -173,6 +171,7 @@ const getValue = (num) => {
         return;
     }
 
+    ///Get operator index
     let opIndex = 0;
 
             for(i=0; i<equationArr.length; i++) {
@@ -189,6 +188,7 @@ const getValue = (num) => {
         
 
             ///Pass value to equation array
+            //buttonval = Number(checkNumLength(buttonVal));
             equationArr.push(buttonVal);
             console.log("array:" + equationArr); 
 
@@ -205,7 +205,8 @@ const getValue = (num) => {
 
             screen.innerHTML = equationArr.slice(opIndex).join(""); 
             //Operators
-            return operatorCheck(num);
+            
+            return 
         
         
     }
@@ -268,12 +269,17 @@ const equals = () => {
             if(Number.isInteger(result) == false) {
                     
                     decimalSpace = Math.max(checkDecimal(result)+1, screenWidth - checkDecimal(result));
+                    result = result.toFixed(decimalSpace)
                     //console.log(decimalSpace);
                 }   
-
-            
+            if(result > 99999999)
+                { result = checkNumLength(result); }
             ///Set equation array to result
-            equationArr = [result.toFixed(decimalSpace)];
+
+           
+            
+
+            equationArr = [result];
             
             ///Pass result to screen
             screen.innerHTML = equationArr[equationArr.length-1];

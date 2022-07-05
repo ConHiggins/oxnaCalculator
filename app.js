@@ -338,6 +338,7 @@ const equals = () => {
                     result = result.toFixed(decimalSpace)
                     //console.log(decimalSpace);
                 }   
+            ////Exponentials
             if(result > 99999999)
                 { result = checkNumLength(result); }
             ///Set equation array to result
@@ -345,7 +346,7 @@ const equals = () => {
             
             ///Pass result to screen
             screen.innerHTML = equationArr[equationArr.length-1];
-            console.log(equationArr);
+            console.log("array:" + equationArr);
 
             //Reset operator bool
             containsOperator = false;

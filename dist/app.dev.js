@@ -229,7 +229,8 @@ var equals = function equals() {
     if (Number.isInteger(result) == false) {
       decimalSpace = Math.min(checkDecimal(result) + 1, screenWidth - checkDecimal(result));
       result = result.toFixed(decimalSpace); //console.log(decimalSpace);
-    }
+    } ////Exponentials
+
 
     if (result > 99999999) {
       result = checkNumLength(result);
@@ -239,7 +240,7 @@ var equals = function equals() {
     equationArr = [result]; ///Pass result to screen
 
     screen.innerHTML = equationArr[equationArr.length - 1];
-    console.log(equationArr); //Reset operator bool
+    console.log("array:" + equationArr); //Reset operator bool
 
     containsOperator = false; //console.log(result);
   }

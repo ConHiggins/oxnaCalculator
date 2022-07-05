@@ -20,10 +20,24 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.body_red {
+
+    
     background: linear-gradient(0deg, 
                         $light-col 0%, 
                             $mid-col 40%, 
                                 $bg-col 90%);
+}
+
+.body_blue {
+
+    
+    background: linear-gradient(0deg, 
+                        $blu-highlight-col 0%, 
+                            $blu-mid-col 40%, 
+                                $blu-bg-col 90%);
 }
 
 @media screen and (min-width:320px ) {

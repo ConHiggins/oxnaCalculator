@@ -13,7 +13,14 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.body_red {
   background: linear-gradient(0deg, #FCAA67 0%, #B0413E 40%, #473335 90%);
+}
+
+.body_blue {
+  background: linear-gradient(0deg, #FFFFC7 0%, #007EA7 40%, #00171F 90%);
 }
 
 @media screen and (min-width: 320px) {

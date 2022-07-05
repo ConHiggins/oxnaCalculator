@@ -5,16 +5,26 @@ var screen = document.getElementById("Calculator__display");
 var containsOperator = false;
 var screenWidth = 9;
 var currLength = 0;
-var operators = ["+", "-", "/", "*", "%"];
+var operators = ["+", "-", "/", "*", "%"]; ///// Palette cycle //////////////////////////////////////////////////////////////
+
 var palettes = ["Calculator_red", "Calculator_blue"];
 var buttonPalettes = ["Calculator__button_red", "Calculator__button_blue"];
-var displayPalettes = ["Calculator__display_red", "Calculator__display_blue"]; ///// Palette cycle //////////////////////////////////////////////////////////////
+var displayPalettes = ["Calculator__display_red", "Calculator__display_blue"];
+var bodyPalettes = ["body_red", "body_blue"];
 
 var switchPalette = function switchPalette() {
   var calc = document.querySelector(".Calculator");
   var btn = document.querySelectorAll(".Calculator__button");
   var buttonsArray = Array.from(btn);
-  var dis = document.querySelector(".Calculator__display"); ////Calc background
+  var dis = document.querySelector(".Calculator__display");
+  var bod = document.querySelector("body"); ///Background
+
+  var activeBodPalette = bodyPalettes.findIndex(function (bp) {
+    return bod.classList.contains(bp);
+  });
+  var nextBodPalette = (activeBodPalette + 1) % bodyPalettes.length;
+  bod.classList.remove(bodyPalettes[activeBodPalette]);
+  bod.classList.add(bodyPalettes[nextBodPalette]); ////Calc background
 
   var activePalette = palettes.findIndex(function (p) {
     return calc.classList.contains(p);
@@ -169,8 +179,15 @@ var getValue = function getValue(num) {
       }
     }
 
-    screen.innerHTML = equationArr.slice(opIndex).join(""); //Operators
-
+    screen.innerHTML = equationArr.slice(opIndex).join("");
+    return;
+  } else if (totalLength >= screenWidth) {
+    ///Pass value to equation array
+    //buttonval = Number(checkNumLength(buttonVal));
+    equationArr.push(buttonVal);
+    console.log("array:" + equationArr);
+    equals();
+    screen.innerHTML = equationArr.slice(equationArr.length - 1).join("");
     return;
   } //else {return equals();}
 
@@ -205,13 +222,12 @@ var equals = function equals() {
 
 
     var result = Function("return " + equationArr.join(""))(); ////Important to have () at the end as it executes it as a function (rather than printing the function)
-    //checkNumLength(result);
     ///var for remaining space 
 
     var decimalSpace = 0;
 
     if (Number.isInteger(result) == false) {
-      decimalSpace = Math.max(checkDecimal(result) + 1, screenWidth - checkDecimal(result));
+      decimalSpace = Math.min(checkDecimal(result) + 1, screenWidth - checkDecimal(result));
       result = result.toFixed(decimalSpace); //console.log(decimalSpace);
     }
 
@@ -222,7 +238,8 @@ var equals = function equals() {
 
     equationArr = [result]; ///Pass result to screen
 
-    screen.innerHTML = equationArr[equationArr.length - 1]; //Reset operator bool
+    screen.innerHTML = equationArr[equationArr.length - 1];
+    console.log(equationArr); //Reset operator bool
 
     containsOperator = false; //console.log(result);
   }

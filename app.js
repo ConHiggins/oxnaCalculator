@@ -13,10 +13,13 @@ let currLength = 0;
 
 const operators = ["+","-","/","*","%"];
 
+
+///// Palette cycle //////////////////////////////////////////////////////////////
+
 const palettes = ["Calculator_red", "Calculator_blue"];
 const buttonPalettes = ["Calculator__button_red", "Calculator__button_blue"];
 const displayPalettes = ["Calculator__display_red", "Calculator__display_blue"];
-///// Palette cycle //////////////////////////////////////////////////////////////
+const bodyPalettes = ["body_red", "body_blue"];
 
 const switchPalette = () => {
 
@@ -25,6 +28,15 @@ const switchPalette = () => {
     const btn = document.querySelectorAll(".Calculator__button");
     const buttonsArray = Array.from(btn);
     const dis = document.querySelector(".Calculator__display");    
+    const bod = document.querySelector("body");
+
+
+    ///Background
+    const activeBodPalette = bodyPalettes.findIndex((bp) => bod.classList.contains(bp));
+    const nextBodPalette = (activeBodPalette + 1) % bodyPalettes.length;    
+
+    bod.classList.remove(bodyPalettes[activeBodPalette]);
+    bod.classList.add(bodyPalettes[nextBodPalette]);
 
 
     ////Calc background
@@ -196,8 +208,6 @@ const getValue = (num) => {
     
     //Clear zero
     if(equationArr[0] == 0) { equationArr = [];}
-
-    
     
     if(buttonVal == "+/-") {
 
@@ -250,11 +260,24 @@ const getValue = (num) => {
             }
 
             screen.innerHTML = equationArr.slice(opIndex).join(""); 
-            //Operators
-            
+                      
             return 
         
         
+    }
+
+    else if(totalLength >= screenWidth) {
+
+        ///Pass value to equation array
+            //buttonval = Number(checkNumLength(buttonVal));
+            equationArr.push(buttonVal);
+            console.log("array:" + equationArr); 
+
+            equals();
+            screen.innerHTML = equationArr.slice(equationArr.length-1).join(""); 
+
+            return;
+
     }
     //else {return equals();}
     
@@ -306,29 +329,23 @@ const equals = () => {
             ///Run equation array as mathematical function 
             let result = Function("return " + equationArr.join(""))();  ////Important to have () at the end as it executes it as a function (rather than printing the function)
 
-            //checkNumLength(result);
-
-
             ///var for remaining space 
             let decimalSpace = 0;
 
             if(Number.isInteger(result) == false) {
                     
-                    decimalSpace = Math.max(checkDecimal(result)+1, screenWidth - checkDecimal(result));
+                    decimalSpace = Math.min(checkDecimal(result)+1, screenWidth - checkDecimal(result));
                     result = result.toFixed(decimalSpace)
                     //console.log(decimalSpace);
                 }   
             if(result > 99999999)
                 { result = checkNumLength(result); }
             ///Set equation array to result
-
-           
-            
-
             equationArr = [result];
             
             ///Pass result to screen
             screen.innerHTML = equationArr[equationArr.length-1];
+            console.log(equationArr);
 
             //Reset operator bool
             containsOperator = false;
